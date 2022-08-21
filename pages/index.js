@@ -15,7 +15,7 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">boarDev!</a>
         </h1>
-        <h4>Prueba para un commit</h4>
+        <h4>Ahora prueba desde laptop</h4>
       </main>
     </div>
   )
