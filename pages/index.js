@@ -15,7 +15,21 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">boarDev!</a>
         </h1>
-        <h4>Ahora prueba desde laptop</h4>
+        <nav>
+          <a href="/boardtimeline">boardTimeLine</a>
+        </nav>
+
+        {/* Estilos dentro del propio componente con JSX */}
+        <style jsx>{`
+          nav {
+            color: red;
+            font-size: 20px;
+          }
+        `}</style>
+        <style global jsx>{`
+          body {
+          }
+        `}</style>
       </main>
     </div>
   );
