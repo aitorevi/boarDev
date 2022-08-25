@@ -1,11 +1,30 @@
+//
+import { useState } from 'react';
+
 import Head from 'next/head';
 import AppLayout from './components/AppLayout';
 import { fonts } from '../styles/theme';
 import { colors } from '../styles/theme';
 import Button from './components/Button';
 import GitHub from './components/Icons/GitHub';
+import { loginWithGitHub } from '../firebase/client';
 
 export default function Home() {
+  //
+  const [users, setUser] = useState(null);
+
+  const handleClick = () => {
+    loginWithGitHub()
+      .then((user) => {
+        const { photo } = user;
+        setUser(user);
+        console.log(user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <AppLayout>
@@ -19,7 +38,7 @@ export default function Home() {
         <section>
           <img src="/logo.svg" />
           <h1>boarDev!</h1>
-          <Button>
+          <Button onClick={handleClick}>
             <GitHub fill="#fff" width={18} height={18} />
             Login GitHub
           </Button>
