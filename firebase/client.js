@@ -39,6 +39,8 @@ export const loginWithGitHub = () => {
   return signInWithPopup(auth, provider).then(mapUserFromFirebaseAuthToUser);
 };
 
+//dev
+
 // const { user } = code;
 // const { email, photoURL, reloadUserInfo } = user;
 // const { screenName } = reloadUserInfo;
