@@ -11,7 +11,7 @@ import { loginWithGitHub } from '../firebase/client';
 
 export default function Home() {
   //
-  const [users, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
   const handleClick = () => {
     loginWithGitHub()
@@ -38,10 +38,19 @@ export default function Home() {
         <section>
           <img src="/logo.svg" />
           <h1>boarDev!</h1>
-          <Button onClick={handleClick}>
-            <GitHub fill="#fff" width={18} height={18} />
-            Login GitHub
-          </Button>
+
+          <div>
+            {user === null ? (
+              <Button onClick={handleClick}>
+                <GitHub fill="#fff" width={18} height={18} />
+                Login GitHub
+              </Button>
+            ) : (
+              <div>
+                <h4>estas logueado</h4>
+              </div>
+            )}
+          </div>
         </section>
       </AppLayout>
 

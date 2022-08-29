@@ -14,20 +14,39 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+const mapUserFromFirebaseAuthToUser = (code) => {
+  const { user } = code;
+  const { email, photoURL, reloadUserInfo } = user;
+  const { screenName } = reloadUserInfo;
+  return {
+    user,
+    email,
+    photoURL,
+    screenName,
+  };
+};
+
+export const onAuthStateChanged = (onChange) => {
+  return firebase.auth().onAuthStateChanged((user) => {
+    const normalizedUser = mapUserFromFirebaseAuthToUser(user);
+    onChange(normalizedUser);
+  });
+};
+
 export const loginWithGitHub = () => {
   const provider = new GithubAuthProvider();
   const auth = getAuth();
-  return signInWithPopup(auth, provider).then((code) => {
-    const { user } = code;
-    const { email, photoURL, reloadUserInfo } = user;
-    const { screenName } = reloadUserInfo;
-    return {
-      email,
-      photoURL,
-      screenName,
-    };
-  });
+  return signInWithPopup(auth, provider).then(mapUserFromFirebaseAuthToUser);
 };
+
+// const { user } = code;
+// const { email, photoURL, reloadUserInfo } = user;
+// const { screenName } = reloadUserInfo;
+// return {
+//   email,
+//   photoURL,
+//   screenName,
+// };
 
 // export const loginWithGitHub = () => {
 //   const provider = new GithubAuthProvider();
@@ -56,6 +75,8 @@ export const loginWithGitHub = () => {
 // //   const githubProvider = new firebase.auth.GithubAuthProvider();
 // //   return firebase.auth().signInWithPopup(githubProvider);
 // // };
+
+// Esta parte me sirve para que me devuelva el objeto completo con toda la info y ver que es lo que quiero extraer del mismo
 
 // export const loginWithGitHub = () => {
 //   const githubProvider = new GithubAuthProvider();
